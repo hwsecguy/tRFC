@@ -1,0 +1,8 @@
+# exe
+measure
+
+# log
+*.txt
+
+# environment
+.venv
