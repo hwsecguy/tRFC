@@ -101,8 +101,11 @@ int main() {
   long start = utime();
   getTiming((uint64_t)&a, (uint64_t)&b, timings, histogram);
   long end = utime();
+  long avg = (histogram[no_of_accesses - 1].start_cc - histogram[0].start_cc) /
+             no_of_accesses;
 
-  printf("accessing 300000 times took %ld ms\n", end - start);
+  printf("accessing 300000 times took %ld ms avg. lat: %ld exp. refs: %ld\n",
+         end - start, avg, (end - start) * 1000000 / 7800);
   for (int x = 0; x < 20; x++) {
     printf("Range: %ld--%ld --> %ld\n", x * 100, (x * 100) + 100, timings[x]);
   }
