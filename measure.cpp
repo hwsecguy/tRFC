@@ -49,10 +49,10 @@ void getTiming(pointer first, pointer second, uint64_t *timings,
   asm volatile("clflush (%0)" : : "r"(f) : "memory");
   for (uint64_t i = 0; i < no_of_accesses; i++) {
 
-    *f;
-
+    *(volatile char *)f;
     asm volatile("clflush (%0)" : : "r"(f) : "memory");
-    lat[i] = rdtsc();
+    mfence();
+    lat[i] = rdtscp();
   }
 
   for (int i = 0; i < no_of_accesses; i++) {
